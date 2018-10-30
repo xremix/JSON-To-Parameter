@@ -9,4 +9,4 @@ The Tool does the following steps
 - Verify if the input is JSON or JavaScript
 - Parse input and show errors
 - Minify
-- Encode for Parameter
+- URL Encode input
