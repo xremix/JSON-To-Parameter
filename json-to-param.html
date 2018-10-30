@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>Convert JSON to encoded Parameter</title>
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb" crossorigin="anonymous">
+	<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+	<style type="text/css">
+		body{
+			color:#333333;
+		}
+		.hidden{
+			display: none;
+		}
+	</style>
+</head>
+<body>
+	<div class="container">
+		<h1 id="title">Convert JSON to encoded Parameter <i class="fa fa-code" aria-hidden="true"></i></h1>
+		<p>Have fun using this generator!</p>
+  <div class="form-group">
+		<div id="error" class="alert alert-warning hidden"></div>
+		<textarea id="input" class="form-control" name="name" rows="8" cols="80"></textarea>
+		<textarea id="result" class="form-control" name="name" rows="8" cols="80"></textarea>
+	</div>
+	</div>
+	<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js" integrity="sha384-vFJXuSJphROIrBnz7yo7oB41mKfc8JzQZiCq4NCceLEaO4IHwicKwpJf9c9IpFgh" crossorigin="anonymous"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js" integrity="sha384-alpBpkh1PFOepccYVYDB4do5UnbKysX5WZXm3XxPqe5iKTfUKjNkCk9SaVuEZflJ" crossorigin="anonymous"></script>
+	<script type="text/javascript">
+		"use strict";
+
+		function minify(input){
+			input =  input.replace(/(\s)+/g, " ");
+			input =  input.replace(/'/g, "\"");
+			return input;
+		}
+
+		$('#input').bind('input propertychange', function() {
+			try{
+				$('#error').addClass("hidden");
+				console.log(this.value);
+				var jsonText = minify(this.value);
+				// var jsonText = JSON.stringify(JSON.parse(this.value));
+				jsonText = encodeURI(jsonText);
+				$('#result').text(jsonText);
+			}catch(e){
+				$('#error').removeClass("hidden");
+				$('#error').text(e);
+				console.log(e);
+			}
+
+		});
+	</script>
+</body>
+</html>
