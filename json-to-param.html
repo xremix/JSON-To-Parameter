@@ -18,7 +18,7 @@
 </head>
 <body>
 	<div class="container">
-		<h1 id="title">Convert JSON objects to encoded Parameter v0.0.2<i class="fa fa-code" aria-hidden="true"></i></h1>
+		<h1 id="title">Convert JSON objects to encoded Parameter v0.0.3<i class="fa fa-code" aria-hidden="true"></i></h1>
 		This generator will do the following:
 		<ul>
 			<li>Verify if the input is JSON or JavaScript</li>
@@ -50,7 +50,6 @@
 				var x = JSON.parse(j);
 				return !!x;
 			}catch(e){
-				console.warn(e);
 				return e;
 			}
 			return false;
@@ -62,7 +61,6 @@
 				eval(jsstring);
 				return true;
 			}catch(e){
-				console.warn(e);
 				return e;
 			}
 			return false;
@@ -88,12 +86,11 @@
 					text += isValidJson(this.value);
 					text += '<br/><b>JavaScript Error</b><br/>';
 					text += isValidJavaScriptObject(this.value);
-					$('#success').innerHtml(text);
+					$('#error').html(text);
 				}
 			}catch(e){
 				$('#error').removeClass("hidden");
 				$('#error').text(e);
-				console.log(e);
 			}
 
 		});
