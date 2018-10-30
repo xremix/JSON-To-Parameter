@@ -18,10 +18,17 @@
 </head>
 <body>
 	<div class="container">
-		<h1 id="title">Convert JSON to encoded Parameter <i class="fa fa-code" aria-hidden="true"></i></h1>
-		<p>Have fun using this generator!</p>
+		<h1 id="title">Convert JSON objects to encoded Parameter <i class="fa fa-code" aria-hidden="true"></i></h1>
+		This generator will simply
+		<ul>
+			<li>Verify if the input is JSON or JavaScript</li>
+			<li>Parse and show errors</li>
+			<li>Minify</li>
+			<li>Encode for Parameter</li>
+		</ul>
   <div class="form-group">
 		<div id="error" class="alert alert-warning hidden"></div>
+		<div id="success" class="alert alert-success hidden"></div>
 		<textarea id="input" class="form-control" name="name" rows="8" cols="80"></textarea>
 		<textarea id="result" class="form-control" name="name" rows="8" cols="80"></textarea>
 	</div>
@@ -38,14 +45,51 @@
 			return input;
 		}
 
+		function isValidJson(j){
+			try{
+				var x = JSON.parse(j);
+				return !!x;
+			}catch(e){
+				console.warn(e);
+				return e;
+			}
+			return false;
+		}
+
+		function isValidJavaScriptObject(j){
+			try{
+				var jsstring = 'var x = ' + j;
+				eval(jsstring);
+				return true;
+			}catch(e){
+				console.warn(e);
+				return e;
+			}
+			return false;
+		}
+
 		$('#input').bind('input propertychange', function() {
 			try{
 				$('#error').addClass("hidden");
-				console.log(this.value);
+				$('#success').addClass("hidden");
 				var jsonText = minify(this.value);
 				// var jsonText = JSON.stringify(JSON.parse(this.value));
 				jsonText = encodeURI(jsonText);
 				$('#result').text(jsonText);
+				if(isValidJson(this.value) == true){
+					$('#success').removeClass("hidden");
+					$('#success').text("Successfully converted an JSON object");
+				}else if (isValidJavaScriptObject(this.value) == true){
+					$('#success').removeClass("hidden");
+					$('#success').text("Successfully converted an JavaScript object");
+				}else{
+					$('#error').removeClass("hidden");
+					var text = '<b>JSON Error</b><br/>';
+					text += isValidJson(this.value);
+					text += '<br/><b>JavaScript Error</b><br/>';
+					text += isValidJavaScriptObject(this.value);
+					$('#success').innerHtml(text);
+				}
 			}catch(e){
 				$('#error').removeClass("hidden");
 				$('#error').text(e);
