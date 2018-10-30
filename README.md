@@ -2,7 +2,7 @@
 
 This simply tool allows you to convert JSON into a parameter.
 
-### Check out the [Live Demo](https://xremix.github.io/Json-To-Parameter/json-to-param.html)
+### Check out the [Live Demo](https://xremix.github.io/JSON-To-Parameter/json-to-param.html)
 
 The Tool does the following steps
 
