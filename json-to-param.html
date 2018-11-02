@@ -18,14 +18,17 @@
 </head>
 <body>
 	<div class="container">
-		<h1 id="title">Convert JSON objects to encoded Parameter v0.0.3<i class="fa fa-code" aria-hidden="true"></i></h1>
-		This generator will do the following:
+		<h1 id="title">Convert JSON objects to encoded Parameter <i class="fa fa-code" aria-hidden="true"></i></h1>
+		<h4>v0.0.4</h4>
+		<br/>
+		The converter will do the following steps:
 		<ul>
 			<li>Verify if the input is JSON or JavaScript</li>
 			<li>Parse and show errors</li>
 			<li>Minify</li>
 			<li>URL Encode input</li>
 		</ul>
+		<br/>
   <div class="form-group">
 		<div id="error" class="alert alert-warning hidden"></div>
 		<div id="success" class="alert alert-success hidden"></div>
@@ -66,34 +69,37 @@
 			return false;
 		}
 
+		function showAlert(type, text){
+			$('#error').addClass("hidden");
+			$('#success').addClass("hidden");
+			if(!!type){
+				$('#'+type).removeClass("hidden");
+				$('#'+type).html(text);
+			}
+		}
+
 		$('#input').bind('input propertychange', function() {
 			try{
-				$('#error').addClass("hidden");
-				$('#success').addClass("hidden");
+				showAlert();
 				var jsonText = minify(this.value);
-				// var jsonText = JSON.stringify(JSON.parse(this.value));
 				jsonText = encodeURI(jsonText);
 				$('#result').text(jsonText);
 				if(isValidJson(this.value) == true){
-					$('#success').removeClass("hidden");
-					$('#success').text("Successfully converted an JSON object");
+					showAlert('success', 'Successfully converted an JSON object');
 				}else if (isValidJavaScriptObject(this.value) == true){
-					$('#success').removeClass("hidden");
-					$('#success').text("Successfully converted an JavaScript object");
+					showAlert('success', 'Successfully converted an JavaScript object');
 				}else{
-					$('#error').removeClass("hidden");
 					var text = '<b>JSON Error</b><br/>';
 					text += isValidJson(this.value);
 					text += '<br/><b>JavaScript Error</b><br/>';
 					text += isValidJavaScriptObject(this.value);
-					$('#error').html(text);
+					showAlert("error", text);
 				}
 			}catch(e){
-				$('#error').removeClass("hidden");
-				$('#error').text(e);
+				showAlert("error", e);
 			}
-
 		});
 	</script>
+	<img src="https://ga-beacon.appspot.com/UA-40522413-9/JSON-To-Parameter/web/readme?pixel" alt=""/>
 </body>
 </html>

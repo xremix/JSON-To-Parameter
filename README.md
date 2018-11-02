@@ -10,3 +10,5 @@ The Tool does the following steps
 - Parse input and show errors
 - Minify
 - URL Encode input
+
+![Analytics](https://ga-beacon.appspot.com/UA-40522413-9/JSON-To-Parameter/readme?pixel)
